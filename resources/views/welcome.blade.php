@@ -24,7 +24,8 @@
     <body>
         <div class="container">
             <h2 class="mb-4">Formulario de Cadastro</h2>
-            <form style="margin-top: justify-content: flex-end;">
+            <form style="margin-top: justify-content: flex-end:" action="{{route('cadastro')}}" method="POST"> 
+                @csrf
                 <div class="row mb-3">
                     <div class=" col-lg-9 ">
                         <label for="nome" class="label">Nome</label>
@@ -61,25 +62,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
 </html>
-
-<?PHP
-
-/*if (isset($_POST['nome']) && isset($_POST['username']) && isset($_POST['senha'])){
-    $nomeCompleto = $_POST['nome'];
-    $username = $_POST['username'];
-    $senha = password($_POST['senha']);
-
-    if( empty($nomeCompleto) || empty($username) || empty($senha)) { //Faz o usuario responder todos os campos
-        echo "Preencha todos os campos obrigatorios.";
-    } else {
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT); //utilza para ter uma senha mais forte
-
-        echo "cadastro realizado com sucesso!";
-    }
-
-}
-?> */
-
 
 
 
