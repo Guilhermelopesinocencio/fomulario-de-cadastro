@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/', [EventController::class, 'Index']);
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+//rotas de dados                     |-> Uma array
 Route::post('/cadastra-usuario', [UserController::class, 'formcontroller'])->name('cadastro');
+
+Route::get('/welcome/{id}', function ($id){
+    return view('product', ['id' => $id]);
+});
+
+Route::get('/users', [UserController::class, 'index']);
+
+Route::get('/login', function () {
+    return view('login');
+});
