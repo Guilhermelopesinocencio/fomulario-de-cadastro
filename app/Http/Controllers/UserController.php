@@ -12,42 +12,40 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public function formcontroller(Request $request){
-        
+
         $nome = $request->input('nome');
-        $username = $request->input('username');
-        $senha = $request->input('senha');
+        $email = $request->input('email');
+        $password = $request->input('password');
 
 
         $validator = Validator::make($request->all(), [
-
             'nome' => 'required',
-            'username' => 'required|max:230',
-            'senha' => [
+            'email' => 'required|max:230',
+            'password' => [
                 'required',
-                'min:8',
+                'min:6',
             ]
         ]);
         
         if($validator->fails()){
             dd($validator->errors());
-            return response()->json(['mensagem_erro' => "due merdas"]);
+            return response()->json(['mensagem_erro' => "deu merdar"]);
         }
 
 
         // Verificar se o usuário já existe
-        $existingUser = User::where('email', $username)->first();
+        $existingUser = User::where('email', $email)->first();
 
         if ($existingUser) {
             return response()->json(['success' => false, 'mensagem_erro' => 'Já existe esse email cadastrado'], 400);
         }
-        try {
-                                
+        try {    
+                   
             User::create([
                 'name' => $nome,
-                'email' => $username,
-                'password' => $senha,
+                'email' => $email,
+                'password' => $password,
             ]);
-
 
             return response()->json(["success" => true,  "mensagem_erro" => "Usuário cadastrado com sucesso!"]);
         } catch (\Exception $e) {
@@ -56,7 +54,7 @@ class UserController extends Controller
 
     }
     
-    public function index()
+    public function printtela()
     {
         try{
             //vai atrais do banco de dados
@@ -70,12 +68,18 @@ class UserController extends Controller
         }
     } 
 
-    public function authenticate(Request $request)
-    {
+
+    public function login(Request $request){
+
+
+        // Verificar se o usuário já está autenticado
+        if (Auth::check()) {
+        return response()->json(['success' => true, 'mensagem' => 'Usuário já está logado']);
+    }
 
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'senha' => ['required'],
+            'email' => ['required', 'email', 'ends_with:gmail.com,hotmail.com'],
+            'password' => ['required', 'min:8', 'max:16'],
         ]);
         
         //O método attempt irá retornar true se a autenticação for realizada com sucesso. Caso contrário irá retornar false.
@@ -88,16 +92,19 @@ class UserController extends Controller
             'email' => 'As informações fornecidas não estão no banco de dados! ',
         ]);
 
-            if(Auth::check()){
-                'Usuario ja logado';
-            }
+        if(Auth::check()){
+            'Usuario já logado';
+        }
+
+
     }
 
+    /*
     public function handle($request, $next){
         
         return Auth::onceBasic() ?: $next($request);
     }
-
+    */
 
 
 }

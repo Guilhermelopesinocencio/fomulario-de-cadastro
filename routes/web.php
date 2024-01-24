@@ -22,9 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//rotas de dados                     |-> Uma array
-Route::post('/cadastra-usuario', [UserController::class, 'formcontroller'])->name('cadastro');
-
 Route::get('/welcome/{id}', function ($id){
     return view('product', ['id' => $id]);
 });
@@ -33,4 +30,8 @@ Route::get('/users', [UserController::class, 'index']);
 
 Route::get('/login', function () {
     return view('login');
-});
+})->name('login');
+
+Route::get('/cadastre-se', function () {
+    return view('cadastre-se');
+})->name('cadastre-se');
