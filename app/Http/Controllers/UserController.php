@@ -85,17 +85,8 @@ class UserController extends Controller
         //O método attempt irá retornar true se a autenticação for realizada com sucesso. Caso contrário irá retornar false.
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return response()->json(['sucess' => true, 'mensagem' => 'Login realizado com sucesso']);
         }
-
-        return back()->withErrors([
-            'email' => 'As informações fornecidas não estão no banco de dados! ',
-        ]);
-
-        if(Auth::check()){
-            'Usuario já logado';
-        }
-
 
     }
 
