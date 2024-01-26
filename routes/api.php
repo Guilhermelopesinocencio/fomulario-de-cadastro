@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AtualizacaoController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,6 @@ Route::get('/resultados', [UserController::class, 'printtela'])->name('listagem.
 Route::get('/authenticate', [UserController::class, 'authenticate'])->name('Autenticacao.usuarios');
 //login
 Route::get('/login', [UserController::class, 'login'])->name('login.usuarios');
+//atualiza o banco com novos dados. Não mexe nos dados anteriores.
+Route::put('/atualizar/{id}', [AtualizacaoController::class, 'atualizarConfiguracoes'])->name('atualiza.usuarios');
 

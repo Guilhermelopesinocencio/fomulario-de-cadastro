@@ -75,7 +75,7 @@ class UserController extends Controller
         // Verificar se o usuário já está autenticado
         if (Auth::check()) {
         return response()->json(['success' => true, 'mensagem' => 'Usuário já está logado']);
-    }
+        }
 
         $credentials = $request->validate([
             'email' => ['required', 'email', 'ends_with:gmail.com,hotmail.com'],
@@ -86,20 +86,10 @@ class UserController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
             return response()->json(['sucess' => true, 'mensagem' => 'Login realizado com sucesso']);
+        } else {
+            return response()->json(['failed' => false, 'mensagem' => 'Erro em realizar login']);
         }
-
     }
-
-    /*
-    public function handle($request, $next){
-        
-        return Auth::onceBasic() ?: $next($request);
-    }
-    */
-
-
 }
-
-
 
 ?>
