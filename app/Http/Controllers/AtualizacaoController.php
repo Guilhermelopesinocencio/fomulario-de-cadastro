@@ -8,45 +8,36 @@ use Illuminate\Http\Request;
 class AtualizacaoController extends Controller
 {
 
-    function atualizarConfiguracoes(Request $request)
+    function atualizarConfiguracoes(Request $request, $id)
     {
 
-        //dd($request->all());
-        $registro = User::find();
+        $user = User::find($id);
 
-        if ($registro) {
-            $dadosAtuais = json_decode($registro->configuracoes, true);
-            
+        if ($user) {
+           
+            $dadosAtuais = json_decode($user->configuracoes, true);
+
+            if($dadosAtuais['status']  == 'Forte' ||  $dadosAtuais['status'] == null){
+                
+                $dadosAtuais['status'] = $request->input('status');
+
+            }
+
             $novosDados = [
                 'dados' => [
                    'nome' => $request->input('nome'),
                    'email' => $request->input('email'),
-                   'futuro' => $request->input('futuro'),
+                   'endereco' => $request->input('endereco'),
                 ]
             ];
-            dd($request->all());
+
             $novosDados = array_merge($dadosAtuais, $novosDados);
             
-            $registro->update(['configuracoes' => json_encode($novosDados)]);
-    
-            return true; 
+            $user->update(['configuracoes' => json_encode($novosDados)]);
 
+            return response()->json(['success' => true]);
         } else {
-
-            return false; 
+            return response()->json(['erro' => false]);
         }
     }
-
-
-
-
-
-    
-
-
-
-
-
-
-
 }

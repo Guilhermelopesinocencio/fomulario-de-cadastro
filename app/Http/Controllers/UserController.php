@@ -29,7 +29,7 @@ class UserController extends Controller
         
         if($validator->fails()){
             dd($validator->errors());
-            return response()->json(['mensagem_erro' => "deu merdar"]);
+            return response()->json(['mensagem_erro' => "deu merda"]);
         }
 
 

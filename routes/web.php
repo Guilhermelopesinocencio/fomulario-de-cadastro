@@ -28,10 +28,7 @@ Route::get('/welcome/{id}', function ($id){
 
 Route::get('/users', [UserController::class, 'index']);
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/login', function () {return view('login'); })->name('login');
 
-Route::get('/cadastre-se', function () {
-    return view('cadastre-se');
-})->name('cadastre-se');
+Route::get('/cadastre-se', function () {return view('cadastre-se');})->name('cadastre-se');
+
