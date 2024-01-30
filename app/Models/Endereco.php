@@ -10,7 +10,7 @@ class Endereco extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $table = "Endereco";
+    protected $table = "enderecos";
 
     /**
      * The attributes that are mass assignable.
