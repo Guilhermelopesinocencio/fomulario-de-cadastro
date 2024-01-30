@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AtualizacaoController;
+use App\Http\Controllers\EnderecoController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,7 @@ Route::get('/authenticate', [UserController::class, 'authenticate'])->name('Aute
 Route::get('/login', [UserController::class, 'login'])->name('login.usuarios');
 //atualiza o banco com novos dados. Não mexe nos dados anteriores.
 Route::put('/atualizar/{id}', [AtualizacaoController::class, 'atualizarConfiguracoes'])->name('atualiza.usuarios');
-
+//Excluir usuario do banco
+Route::put('/excluir/{id}', [AtualizacaoController::class, 'excluirUsuario'])->name('excluir.usuarios');
+//Salva o endereço do usuario
+Route::post('/endereco', [EnderecoController::class, 'salvarEndereco'])->name('salvarEndereco.usuario');

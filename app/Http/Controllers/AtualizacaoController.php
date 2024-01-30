@@ -17,11 +17,7 @@ class AtualizacaoController extends Controller
            
             $dadosAtuais = json_decode($user->configuracoes, true);
 
-            if($dadosAtuais['status']  == 'Forte' ||  $dadosAtuais['status'] == null){
-                
-                $dadosAtuais['status'] = $request->input('status');
-
-            }
+            $dadosAtuais['status'] = $request->input('status') ?? $dadosAtuais['status'];
 
             $novosDados = [
                 'dados' => [
@@ -39,5 +35,12 @@ class AtualizacaoController extends Controller
         } else {
             return response()->json(['erro' => false]);
         }
+    }
+
+    function excluirUsuario(Request $request, $id) {
+
+        $user = User::find($id);
+
+        $user->delete();
     }
 }
